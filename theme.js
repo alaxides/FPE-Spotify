@@ -3,7 +3,7 @@ function getTheme() {
     // If no color_scheme is set it should return "" which evaluates to false in JS
     return Spicetify?.Config?.color_scheme || DEFAULT_THEME;
 }
-const likedSongsImageSelector = 'img[src="https://misc.scdn.co/liked-songs/liked-songs-300.png"]';
+const likedSongsImageSelectors = ['img[src="https://misc.scdn.co/liked-songs/liked-songs-300.png"]', 'img[src="https://misc.scdn.co/liked-songs/liked-songs-300.jpg"]', 'img[src="https://misc.scdn.co/liked-songs/liked-songs-640.jpg"]'];
 
 /**
  * @param {(els: HTMLElement[]) => void} func 
@@ -26,9 +26,11 @@ function refreshTheme(theme) {
 }
 
 function refreshLikedSongsImage(theme) {
-    for (const img of document.querySelectorAll(likedSongsImageSelector)) {
-        img.setAttribute("src", `https://github.com/Adrien5902/SpicetifyCat/blob/main/themes/${theme}/liked_songs.png?raw=true`)
-        img.removeAttribute("srcset")
+    for (const selector of likedSongsImageSelectors) {
+        for (const img of document.querySelectorAll(selector)) {
+            img.setAttribute("src", `https://github.com/Adrien5902/SpicetifyCat/blob/main/themes/${theme}/liked_songs.png?raw=true`)
+            img.removeAttribute("srcset")
+        }
     }
 }
 
